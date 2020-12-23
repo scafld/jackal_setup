@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find jackal_setup)/maps/3rd_floor_realsense.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--- Run AMCL -->
+  <include file="$(find jackal_setup)/launch/amcl.launch" />
+
+  <!--- Run Move Base -->
+  <include file="$(find jackal_setup)/launch/move_base.launch" />
+
+</launch>

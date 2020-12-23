@@ -1,0 +1,22 @@
+<launch>
+  <arg name="serial_port" default="/dev/ttyACM1" />
+  <arg name="frame_id" default="front_laser" /> 
+  <arg name="lidar_data_2d" default="front/scan" />
+
+  <node name="urg_node" pkg="urg_node" type="urg_node" output="screen" required="true">
+    <param name="ip_address" value=""/>
+    <param name="serial_port" value="$(arg serial_port)"/>
+    <param name="serial_baud" value="115200"/>
+    <param name="frame_id" value="$(arg frame_id)"/>
+    <param name="calibrate_time" value="true"/>
+    <param name="publish_intensity" value="false"/>
+    <param name="publish_multiecho" value="false"/>
+    <param name="angle_min" value="-1.5707963"/>
+    <param name="angle_max" value="1.5707963"/>
+    <remap from="scan" to="$(arg lidar_data_2d)"/>
+  </node>  
+
+  <!-- Attatch the camera to the map frame. Comment this part out if not needed -->
+  <node name="static_2d_lidar_frame_publisher" pkg="tf" type="static_transform_publisher" args="0.17 0 0.2 0 0 -3.1416 /base_link /$(arg frame_id) 50"/>
+
+</launch>

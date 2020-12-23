@@ -1,0 +1,19 @@
+<launch>
+ <arg name="scan_topic" default="$(eval optenv('JACKAL_LASER_TOPIC', '/scan'))" />
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch"/>
+  <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">
+  <remap from="image"  to="/camera/depth/image_rect_raw"/>
+  </node>
+
+ <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0.1 0 0 0 base_link camera_link 10" />
+
+
+  <!--- Run gmapping -->
+  <!-- <include file="$(find jackal_navigation)/launch/include/gmapping.launch">
+    <arg name="scan_topic"    value="$(arg scan_topic)" />
+  </include> -->
+
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+        args="-d $(find jackal_setup)/config/navigation.rviz"/>
+
+</launch>

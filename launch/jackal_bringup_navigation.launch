@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- <include file="$(find jackal_setup)/launch/os1_remappable.launch"/> -->
+  <!-- <include file="$(find pointcloud_to_laserscan)/launch/sample_node.launch"/> -->
+  <!-- <include file="$(find jackal_navigation)/launch/amcl_demo.launch"/> -->
+
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find jackal_setup)/config/navigation.rviz"/>
+</launch>
