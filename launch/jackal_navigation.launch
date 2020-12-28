@@ -6,9 +6,7 @@
 
   <!-- Map server -->
   <!-- <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/> -->
-
-  <include file="$(find jackal_setup)/launch/urg_node_remappable.launch">
-  </include>
+  
   <!-- AMCL -->
   <include file="$(find jackal_setup)/launch/amcl_demo.launch"/>
 
