@@ -1,10 +1,5 @@
 <launch>
  <arg name="scan_topic" default="$(eval optenv('JACKAL_LASER_TOPIC', 'front/scan'))" />
 
-  <!-- <include file="$(find jackal_setup)/launch/urg_node_remappable.launch">
-  </include> -->
-
-  <node pkg="rviz" type="rviz" name="rviz" required="true"
-        args="-d $(find jackal_setup)/config/navigation.rviz"/>
-
+  
 </launch>
