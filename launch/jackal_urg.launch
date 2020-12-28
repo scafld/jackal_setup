@@ -1,5 +1,4 @@
 <launch>
  <arg name="scan_topic" default="$(eval optenv('JACKAL_LASER_TOPIC', 'front/scan'))" />
-
-  
+   <include file="$(find jackal_setup)/launch/urg_node_remappable.launch"/>
 </launch>
