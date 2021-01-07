@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- Attatch the lidar to robot base_link frame. Comment this part out if not needed -->
+  <node name="static_3d_lidar_frame_publisher" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 world os1_lidar 50"/>
+
+</launch>
