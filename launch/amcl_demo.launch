@@ -4,7 +4,7 @@
   <arg name="scan_topic" default="$(eval optenv('JACKAL_LASER_TOPIC', 'front/scan'))" />
 
   <!-- Run the map server -->
- <arg name="map_file" default="$(find jackal_setup)/maps/3rd_floor.yaml"/>
+ <arg name="map_file" default="$(find jackal_setup)/maps/demo_room_delta.yaml"/>
  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!--- Run AMCL -->

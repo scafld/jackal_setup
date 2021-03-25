@@ -12,7 +12,10 @@
     <rosparam file="$(find jackal_setup)/params/move_base_params.yaml" command="load" />
 
     <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
-    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+    <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/> -->
+    
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+    <param name="controller_frequency" value="10.0">
 
     <remap from="odom" to="odometry/filtered" />
   </node>
