@@ -1,6 +1,8 @@
 <launch>
   <!-- Arguments -->
-  <arg name="map_file" default="$(find jackal_setup)/maps/map.yaml"/>
+  <!-- <arg name="map_file" default="$(find jackal_setup)/maps/map.yaml"/> -->
+  <arg name="map_file" default="$(find jackal_setup)/maps/delta_3rd_floor/map.yaml"/>
+
   <arg name="open_rviz" default="true"/>
 
   <!-- Map server -->
