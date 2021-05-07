@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find jackal_setup)/config/teb_navigation.rviz"/>
+</launch>
