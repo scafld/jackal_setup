@@ -6,7 +6,7 @@
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" />
     
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
     <rosparam file="$(find jackal_setup)/params/teb_planner/costmap_common_params.yaml" command="load" ns="local_costmap"/>
