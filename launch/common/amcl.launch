@@ -41,7 +41,7 @@
     <!-- Number of filter updates required before resampling. -->
     <param name="resample_interval" value="1"/>
     <!-- Increase tolerance because the computer can get quite busy -->
-    <param name="transform_tolerance" value="1.0"/>
+    <param name="transform_tolerance" value="2.0"/>
     <!-- Exponential decay rate for the slow average weight filter, used in deciding when to recover by adding random poses. A good value might be 0.001. -->
     <param name="recovery_alpha_slow" value="0.0"/>
     <!--Exponential decay rate for the fast average weight filter, used in deciding when to recover by adding random poses. A good value might be 0.1. -->

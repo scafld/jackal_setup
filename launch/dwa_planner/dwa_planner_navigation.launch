@@ -1,0 +1,21 @@
+<launch>
+  <!-- Arguments -->
+  <!-- <arg name="map_file" default="$(find jackal_setup)/maps/3rd_floor.yaml"/> -->
+    <arg name="map_file" default="$(find jackal_setup)/maps/delta_3rd_floor/map.yaml"/>
+
+  <arg name="move_forward_only" default="true"/>
+
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  
+  <!-- AMCL -->
+  <include file="$(find jackal_setup)/launch/common/amcl.launch"/>
+
+  <!--- Run Move Base -->
+ <include file="$(find jackal_setup)/launch/dwa_planner/move_base_dwa_planner.launch" />
+
+  <!-- rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find jackal_setup)/config/dwa_navigation.rviz"/>
+</launch>

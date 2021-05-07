@@ -9,7 +9,7 @@
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
 
   <!-- AMCL -->
-  <include file="$(find jackal_setup)/launch/teb_planner/amcl.launch"/>
+  <include file="$(find jackal_setup)/launch/common/amcl.launch"/>
 
   <!-- move_base -->
   <include file="$(find jackal_setup)/launch/teb_planner/move_base_teb_planner.launch">
@@ -18,6 +18,6 @@
   <!-- rviz -->
   <group if="$(arg open_rviz)"> 
     <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find jackal_setup)/config/turtlebot3_navigation.rviz"/>
+          args="-d $(find jackal_setup)/config/teb_navigation.rviz"/>
   </group>
 </launch>
