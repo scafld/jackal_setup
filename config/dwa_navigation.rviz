@@ -7,6 +7,7 @@ Panels:
         - /TF1/Frames1
         - /TF1/Tree1
         - /LaserScan1
+        - /Planner Plan1
         - /Global Map1/Costmap1
         - /Global Map1/Planner1
         - /Local Map1
@@ -78,6 +79,16 @@ Visualization Manager:
           Show Trail: false
           Value: true
         front_fender_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_laser:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_laser_mount:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -220,7 +231,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /move_base/NavfnROS/plan
+      Topic: /move_base/GlobalPlanner/plan
       Unreliable: false
       Value: true
     - Class: rviz/Group
@@ -300,7 +311,7 @@ Visualization Manager:
           Radius: 0.029999999329447746
           Shaft Diameter: 0.10000000149011612
           Shaft Length: 0.10000000149011612
-          Topic: /move_base/TebLocalPlannerROS/local_plan
+          Topic: /move_base/DWAPlannerROS/local_plan
           Unreliable: false
           Value: true
       Enabled: true
@@ -359,7 +370,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -3.1107983589172363
+      Angle: -2.0857958793640137
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -369,11 +380,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 32.451942443847656
+      Scale: 38.76377487182617
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 47.97175598144531
-      Y: 24.49538803100586
+      X: 79.51553344726562
+      Y: 8.943586349487305
     Saved: ~
 Window Geometry:
   Displays:
@@ -394,4 +405,4 @@ Window Geometry:
     collapsed: true
   Width: 1279
   X: 589
-  Y: 1234
+  Y: 124

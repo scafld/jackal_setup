@@ -1,3 +1,4 @@
+footprint: [[-0.21, -0.165], [-0.21, 0.165], [0.21, 0.165], [0.21, -0.165]]
 robot_radius: 0.2
 
 map_type: costmap

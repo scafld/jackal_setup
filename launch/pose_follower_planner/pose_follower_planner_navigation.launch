@@ -1,0 +1,23 @@
+<launch>
+  <!-- Arguments -->
+  <!-- <arg name="map_file" default="$(find jackal_setup)/maps/map.yaml"/> -->
+  <arg name="map_file" default="$(find jackal_setup)/maps/delta_3rd_floor/map.yaml"/>
+
+  <arg name="open_rviz" default="true"/>
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL -->
+  <include file="$(find jackal_setup)/launch/common/amcl.launch"/>
+
+  <!-- move_base -->
+  <include file="$(find jackal_setup)/launch/pose_follower_planner/move_base_pose_follower_planner.launch">
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find jackal_setup)/config/trajectory_navigation.rviz"/>
+  </group>
+</launch>

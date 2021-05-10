@@ -1,47 +1,92 @@
-DWAPlannerROS:
+base_local_planner: nav_core_adapter::LocalPlannerAdapter
+LocalPlannerAdapter:
+  planner_name: dwb_local_planner::DWBLocalPlanner
+DWBLocalPlanner:
+  # Robot configuration
+  max_vel_x:  0.6
+  min_vel_x: 0
 
-# Robot Configuration Parameters
-  max_vel_x: 2.0
-  min_vel_x: 0.0
+  max_vel_y: 0.0  # diff drive robot
+  min_vel_y: 0.0  # diff drive robot
 
-  max_vel_y: 0.0
-  min_vel_y: 0.0
+  max_speed_xy: 0.6    # max_trans_vel: 0.8  # choose slightly less than the base's capability
+  min_speed_xy: 0.1    # min_trans_vel: 0.1  # this is the min trans velocity when there is negligible rotational velocity
 
-# The velocity when robot is moving in a straight line
-  max_vel_trans:  0.22
-  min_vel_trans:  0.11
+  max_vel_theta: 0.5    # max_rot_vel: 1.0  # choose slightly less than the base's capability
+  min_speed_theta: 0.1  # min_rot_vel: 0.1 default: 0.4  # this is the min angular velocity when there is negligible translational velocity
 
-  max_vel_theta: 0.5
-  min_vel_theta: 0.1
+  acc_lim_x: 1.5
+  acc_lim_y: 0.0      # diff drive robot
+  acc_lim_theta: 2.0
+  decel_lim_x: -1.5
+  decel_lim_y: -0.0
+  decel_lim_theta: -2.0
 
-  acc_lim_x: 10
-  acc_lim_y: 0.0
-  acc_lim_theta: 0.5
+  # Goal tolerance
+  yaw_goal_tolerance: 0.1#0.03  # yaw_goal_tolerance > (sim_time * min_rot_vel) / 2 (from Navigation Tuning Guide)
+  xy_goal_tolerance: 0.15 #0.08   # xy_goal_tolerance  > (sim_time * min_vel_x)   / 2
+  #latch_xy_goal_tolerance: true
 
-# Goal Tolerance Parametes
-  xy_goal_tolerance: 0.05
-  yaw_goal_tolerance: 0.17
-  latch_xy_goal_tolerance: false
+  # Whether to split the path into segments or not
+  # Requires https://github.com/locusrobotics/robot_navigation/pull/50
+  split_path: true
 
-# Forward Simulation Parameters
-  sim_time: 1.5
-  vx_samples: 20
-  vy_samples: 0
-  vth_samples: 40
-  controller_frequency: 10.0
+  # Forward simulation (trajectory generation)
+  trajectory_generator_name: dwb_plugins::LimitedAccelGenerator or #dwb_plugins::StandardTrajectoryGenerator # or 
+  sim_time: 0.8
+  vx_samples: 15
+  vy_samples: 1       # diff drive robot, there is only one sample
+  vtheta_samples: 15
+  discretize_by_time: false
+  angular_granularity: 0.15
+  linear_granularity: 0.05
+  # sim_period
+  # include_last_point
 
-# Trajectory Scoring Parameters
-  path_distance_bias: 32.0
-  goal_distance_bias: 20.0
-  occdist_scale: 0.02
-  forward_point_distance: 0.325
-  stop_time_buffer: 0.2
-  scaling_speed: 0.25
-  max_scaling_factor: 0.2
+  # Goal checking
+  goal_checker_name: dwb_plugins::SimpleGoalChecker
+  stateful: true
 
-# Oscillation Prevention Parameters
-  oscillation_reset_dist: 0.05
+  #Critics (trajectory scoring)
+  default_critic_namespaces: [dwb_critics, mir_dwb_critics]
+  critics: [RotateToGoal, ObstacleFootprint, PathAlign, PathDistPruned, PathProgress]
+  RotateToGoal:
+    scale: 100.0
+    # lookahead_time: -1.0
+    # slowing_factor: 5.0
+  ObstacleFootprint:
+    scale: 0.01             # default: 0.01  mir: 0.01  - weighting for how much the controller should avoid obstacles
+    max_scaling_factor: 0.2 # default: 0.2   mir: 0.2   - how much to scale the robot's footprint when at speed.
+    scaling_speed: 0.25     # default: 0.25  mir: 0.25  - absolute velocity at which to start scaling the robot's footprint
+    sum_scores: false       # if true, return sum of scores of all trajectory points instead of only last one
+  PathAlign:
+    scale: 16.0
+    forward_point_distance: 0.325 # default: 0.325 mir: 0.325 - how far along to place an additional scoring point
+  PathDistPruned:
+    scale: 32.0            # default: 32.0  mir: 32.0   - weighting for how much it should stick to the global path plan
+    class: 'mir_dwb_critics::PathDistPruned'
+  PathProgress:
+    scale: 24.0            # default: 24.0  mir: 48.0   - weighting for how much it should attempt to reach its goal
+    heading_scale: 0.1
+    class: 'mir_dwb_critics::PathProgress'
+    xy_local_goal_tolerance: 0.20
+    angle_threshold: 0.78539816  # 45 degrees
 
-# Debugging
-  publish_traj_pc : true
+
+  # Prune already passed poses from plan
+  prune_plan: true
+  prune_distance: 1.0   # Old poses farther away than prune_distance (in m) will be pruned.
+                        # If the robot ever gets away further than this distance from the plan,
+                        # the error "Resulting plan has 0 poses in it" will be thrown and
+                        # replanning will be triggered.
+
+  # Debugging
   publish_cost_grid_pc: true
+  debug_trajectory_details: false
+  publish_evaluation: true
+  publish_global_plan: true
+  publish_input_params: true
+  publish_local_plan: true
+  publish_trajectories: true
+  publish_transformed_plan: true
+  marker_lifetime: 0.5
