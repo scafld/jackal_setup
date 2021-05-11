@@ -1,13 +1,15 @@
 <launch>
   <!-- Arguments -->
-  <!-- <arg name="map_file" default="$(find jackal_setup)/maps/3rd_floor.yaml"/> -->
-    <arg name="map_file" default="$(find jackal_setup)/maps/delta_3rd_floor/map.yaml"/>
+  <arg name="map_file" default="$(find jackal_setup)/maps/map.pgm"/>
+    <!-- <arg name="map_file" default="$(find jackal_setup)/maps/delta_3rd_floor/map.pgm"/> -->
 
   <arg name="move_forward_only" default="true"/>
 
 
   <!-- Map server -->
-  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  <!-- <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/> -->
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file) 0.05"/>
+
   
   <!-- AMCL -->
   <include file="$(find jackal_setup)/launch/common/amcl.launch"/>

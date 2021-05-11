@@ -6,7 +6,9 @@
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">    
-    <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" />
+    <!-- <param name="base_global_planner" type="string" value="global_planner/GlobalPlanner" /> -->
+    <param name="SBPLLatticePlanner/primitive_filename" value="$(find jackal_setup)/mprim/unicycle_highcost_5cm.mprim" />
+    <rosparam file="$(find jackal_setup)/params/common/sbpl_global_params.yaml" command="load" />
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
     <rosparam file="$(find jackal_setup)/params/dwa_planner/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find jackal_setup)/params/dwa_planner/costmap_common_params.yaml" command="load" ns="local_costmap" />
